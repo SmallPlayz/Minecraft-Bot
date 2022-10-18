@@ -5,40 +5,36 @@ public class Main {
     public static void main(String[] args) throws AWTException {
         Robot robot = new Robot();
         wait(2500);
+        Mouseclick((1600/2), 100);
         int x = 0;
         while(true){
-
             Color color = robot.getPixelColor((1600/2), (900/2));
             Color colorBottom = robot.getPixelColor(500, 840);
-            if(x==0) {
-                forward();
-                wait(10);
-                if ((color.getRed() == 82 && color.getGreen() == 65 && color.getBlue() == 40) ||
-                    (color.getRed() == 61 && color.getGreen() == 49 && color.getBlue() == 30) ||
-                    (color.getRed() == 65 && color.getGreen() == 52 && color.getBlue() == 32) ||
+            forward();
+            wait(10);
+            if ((color.getRed() == 82 && color.getGreen() == 65 && color.getBlue() == 40) ||
+                (color.getRed() == 61 && color.getGreen() == 49 && color.getBlue() == 30) ||
+                (color.getRed() == 65 && color.getGreen() == 52 && color.getBlue() == 32) ||
 
-                    (color.getRed() == 124 && color.getGreen() == 124 && color.getBlue() == 121) ||
-                    (color.getRed() == 166 && color.getGreen() == 165 && color.getBlue() == 161)) {
-                    x = 1;
+                (color.getRed() == 124 && color.getGreen() == 124 && color.getBlue() == 121) ||
+                (color.getRed() == 166 && color.getGreen() == 165 && color.getBlue() == 161)) {
+                if(x==0){
+                    forward();
+                    breakBlock();
+                    Mouseclick((1600/2), (900/2));
+                    System.out.println("looks down");
+                    breakBlock();
+                    x=1;
+                    System.out.println("broke tree?");
+                }else
+                    treeFound();
                     System.out.println("tree found");
-                }
-                if((colorBottom.getBlue() <= 238 && colorBottom.getBlue() >=140)){
-                    System.out.println("water??");
-                    jumpRun();
-                }
-
-            }else if(x==1){
-                left();
-                wait(10);
-                forward();
-                wait(10);
-                right();
-                wait(10);
-                forward();
-                x=0;
+            }
+            if((colorBottom.getBlue() <= 238 && colorBottom.getBlue() >=140)){
+                System.out.println("water??");
+                jumpRun();
             }
         }
-
     }
     public Color getMouseColor(int x, int y) throws AWTException {
         Robot robot = new Robot();
@@ -95,6 +91,15 @@ public class Main {
         wait(500);
         bot.keyRelease(32);
         bot.keyRelease(87);
+    }
+    public static void treeFound() throws AWTException {
+        left();
+        wait(10);
+        forward();
+        wait(10);
+        right();
+        wait(10);
+        forward();
     }
     public static void breakBlock() throws AWTException {
         Robot bot = new Robot();
